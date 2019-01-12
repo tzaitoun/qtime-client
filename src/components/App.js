@@ -8,6 +8,7 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 /* The root element component of the app, which saves auth state of the user and routes to other pages */
 class App extends React.Component {
@@ -59,8 +60,8 @@ class App extends React.Component {
                 <Router>
                     <div>
                         <PrivateRoute auth={auth} exact path="/" component={Home} />
-                        <Route exact path="/signin" component={SignIn} />
-                        <Route exact path="/signup" component={SignUp} />
+                        <PublicRoute auth={auth} exact path="/signin" component={SignIn} />
+                        <PublicRoute auth={auth} exact path="/signup" component={SignUp} />
                     </div>
                 </Router>
             </AuthContext.Provider>
