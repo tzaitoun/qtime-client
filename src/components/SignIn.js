@@ -6,10 +6,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +26,8 @@ class SignIn extends React.Component {
 		
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			error: ''
 		};
 
 		this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -55,14 +55,34 @@ class SignIn extends React.Component {
 		event.preventDefault();
 		
 		app.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+			.then(() => {
+				this.setState(() => ({
+					error: ''
+				}));
+			})
 			.catch(error => {
-				// handle errors
+				const errorCode = error.code;
+
+				if (errorCode === 'auth/user-disabled') {
+					this.setState(() => ({
+						error: 'The account has been disabled'
+					}));
+				} else if (errorCode === 'auth/invalid-email') {
+					this.setState(() => ({
+						error: 'The email is not a valid email address'
+					}));
+				} else {
+					this.setState(() => ({
+						error: 'The email or password is incorrect'
+					}));
+				}
 			});
 	}
 
 	render() {
 		const { classes } = this.props;
 		const { from } = this.props.location.state || { from: { pathname: '/' }};
+		const { email, password, error } = this.state;
 
 		// If the authenticated user exists, redirect them to their previous location or to root
 		if (this.context) {
@@ -80,18 +100,15 @@ class SignIn extends React.Component {
 					Sign in
 				</Typography>
 				<form className={classes.form} onSubmit={this.handleSignIn}>
-					<FormControl margin="normal" required fullWidth>
+					<FormControl margin="normal" required fullWidth error={error}>
 						<InputLabel htmlFor="email">Email Address</InputLabel>
-						<Input id="email" name="email" autoComplete="email" autoFocus value={this.state.email} onChange={this.handleEmailChange} />
+						<Input id="email" name="email" autoComplete="email" autoFocus value={email} onChange={this.handleEmailChange} />
+						{ error && <FormHelperText id="component-error">{error}</FormHelperText> }
 					</FormControl>
 					<FormControl margin="normal" required fullWidth>
 						<InputLabel htmlFor="password">Password</InputLabel>
-						<Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.password} onChange={this.handlePasswordChange} />
+						<Input name="password" type="password" id="password" autoComplete="current-password" value={password} onChange={this.handlePasswordChange} />
 					</FormControl>
-					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
-						label="Remember me"
-					/>
 					<Button
 						type="submit"
 						fullWidth
