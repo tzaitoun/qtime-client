@@ -1,20 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import app from '../firebase/app';
 
-import authForm from '../styles/authForm';
-
+import signupForm from '../styles/signupForm';
 
 class SignUp extends React.Component {
 
@@ -24,37 +28,36 @@ class SignUp extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			confirmPassword: ''
+			confirmPassword: '',
+			accountType: 'student',
+			firstName: '',
+			lastName: '',
+			studentNumber: '',
+			university: ''
 		};
 
-		this.handleEmailChange = this.handleEmailChange.bind(this);
-		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleAccountTypeChange = this.handleAccountTypeChange.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
 	}
 
-	handleEmailChange(event) {
+	handleChange(event) {
+		const name = event.target.name;
 		const value = event.target.value;
 
-		this.setState(() => ({
-			email: value
-		}));
+		this.setState({
+			[name]: value
+		});
 	}
 
-	handlePasswordChange(event) {
+	handleAccountTypeChange(event) {
+		const name = event.target.name;
 		const value = event.target.value;
 
-		this.setState(() => ({
-			password: value
-		}));
-	}
-
-	handleConfirmPasswordChange(event) {
-		const value = event.target.value;
-
-		this.setState(() => ({
-			confirmPassword: value
-		}));
+		this.setState({
+			[name]: value,
+			studentNumber: ''
+		});
 	}
 
 	handleSignUp(event) {
@@ -68,39 +71,69 @@ class SignUp extends React.Component {
   
 	render() {
 		const { classes } = this.props;
+		const { email, password, confirmPassword, accountType, firstName, lastName, studentNumber, university } = this.state;
 
 		return (
 			<main className={classes.main}>
 			<CssBaseline />
 			<Paper className={classes.paper}>
-				<Avatar className={classes.avatar}>
-				<LockIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-				Sign Up
-				</Typography>
+				<Typography component="h1" variant="h5">Create an Account</Typography>
 				<form className={classes.form} onSubmit={this.handleSignUp}>
-				<FormControl margin="normal" required fullWidth>
-					<InputLabel htmlFor="email">Email Address</InputLabel>
-					<Input id="email" name="email" autoFocus value={this.state.email} onChange={this.handleEmailChange} />
-				</FormControl>
-				<FormControl margin="normal" required fullWidth>
-					<InputLabel htmlFor="password">Password</InputLabel>
-					<Input name="password" type="password" id="password" value={this.state.password} onChange={this.handlePasswordChange} />
-				</FormControl>
-				<FormControl margin="normal" required fullWidth>
-					<InputLabel htmlFor="confirm_password">Confirm Password</InputLabel>
-					<Input name="confirm_password" type="password" id="confirm_password" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange } />
-				</FormControl>
-				<Button
-					type="submit"
-					fullWidth
-					variant="contained"
-					color="primary"
-					className={classes.submit}
-				>
-					Sign up
-				</Button>
+					<FormControl margin="normal" required fullWidth>
+						<InputLabel htmlFor="email">Email Address</InputLabel>
+						<Input id="email" name="email" autoFocus value={email} onChange={this.handleChange} />
+						<FormHelperText>Using your university email is recommended</FormHelperText>
+					</FormControl>
+					<FormControl margin="normal" required fullWidth>
+						<InputLabel htmlFor="password">Password</InputLabel>
+						<Input id="password" name="password" type="password" value={password} onChange={this.handleChange} />
+					</FormControl>
+					<FormControl margin="normal" required fullWidth>
+						<InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
+						<Input id="confirmPassword" name="confirmPassword" type="password" value={confirmPassword} onChange={this.handleChange } />
+					</FormControl>
+					
+					<FormControl component="fieldset" className={classes.radioInput}>
+						<FormLabel component="legend">Account Type</FormLabel>
+						<RadioGroup
+							aria-label="Account Type"
+							name="accountType"
+							className={classes.radioGroup}
+							value={accountType}
+							onChange={this.handleAccountTypeChange}
+						>
+							<FormControlLabel value="student" control={<Radio />} label="Student" />
+							<FormControlLabel value="instructor" control={<Radio />} label="Instructor" />
+						</RadioGroup>
+					</FormControl>
+					
+					<FormGroup className={classes.name}>
+						<FormControl margin="normal" required>
+							<InputLabel htmlFor="firstName">First Name</InputLabel>
+							<Input id="firstName" name="firstName" value={firstName} onChange={this.handleChange} />
+						</FormControl>
+						<FormControl margin="normal" required>
+							<InputLabel htmlFor="lastName">Last Name</InputLabel>
+							<Input id="lastName" name="lastName" value={lastName} onChange={this.handleChange} />
+						</FormControl>
+					</FormGroup>
+					{accountType === 'student' && <FormControl margin="normal" required fullWidth>
+						<InputLabel htmlFor="studentNumber">Student Number</InputLabel>
+						<Input id="studentNumber" name="studentNumber" value={studentNumber} onChange={this.handleChange } />
+					</FormControl>}
+					<FormControl margin="normal" required fullWidth>
+						<InputLabel htmlFor="university">University</InputLabel>
+						<Input id="university" name="university" value={university} onChange={this.handleChange } />
+					</FormControl>
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						color="primary"
+						className={classes.submit}
+					>
+						Sign up
+					</Button>
 				</form>
 			</Paper>
 			</main>
@@ -112,4 +145,4 @@ SignUp.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(authForm)(SignUp);
+export default withStyles(signupForm)(SignUp);
