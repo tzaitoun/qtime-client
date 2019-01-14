@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -30,25 +30,17 @@ class SignIn extends React.Component {
 			error: ''
 		};
 
-		this.handleEmailChange = this.handleEmailChange.bind(this);
-		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 		this.handleSignIn = this.handleSignIn.bind(this);
 	}
 
-	handleEmailChange(event) {
+	handleChange(event) {
+		const name = event.target.name;
 		const value = event.target.value;
 
-		this.setState(() => ({
-			email: value
-		}));
-	}
-
-	handlePasswordChange(event) {
-		const value = event.target.value;
-
-		this.setState(() => ({
-			password: value
-		}));
+		this.setState({
+			[name]: value
+		});
 	}
 
 	handleSignIn(event) {
@@ -93,32 +85,39 @@ class SignIn extends React.Component {
 			<main className={classes.main}>
 				<CssBaseline />
 				<Paper className={classes.paper}>
-				<Avatar className={classes.avatar}>
-					<LockIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Sign in
-				</Typography>
-				<form className={classes.form} onSubmit={this.handleSignIn}>
-					<FormControl margin="normal" required fullWidth error={error}>
-						<InputLabel htmlFor="email">Email Address</InputLabel>
-						<Input id="email" name="email" autoComplete="email" autoFocus value={email} onChange={this.handleEmailChange} />
-						{ error && <FormHelperText id="component-error">{error}</FormHelperText> }
-					</FormControl>
-					<FormControl margin="normal" required fullWidth>
-						<InputLabel htmlFor="password">Password</InputLabel>
-						<Input name="password" type="password" id="password" autoComplete="current-password" value={password} onChange={this.handlePasswordChange} />
-					</FormControl>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-					>
+					<Avatar className={classes.avatar}>
+						<LockIcon />
+					</Avatar>
+					<Typography component="h1" variant="h5">
 						Sign in
-					</Button>
-				</form>
+					</Typography>
+					<form className={classes.form} onSubmit={this.handleSignIn}>
+						<FormControl margin="normal" required fullWidth error={error}>
+							<InputLabel htmlFor="email">Email Address</InputLabel>
+							<Input id="email" name="email" autoComplete="email" autoFocus value={email} onChange={this.handleChange} />
+							{ error && <FormHelperText id="component-error">{error}</FormHelperText> }
+						</FormControl>
+						<FormControl margin="normal" required fullWidth>
+							<InputLabel htmlFor="password">Password</InputLabel>
+							<Input id="password" name="password" type="password" autoComplete="current-password" value={password} 
+								onChange={this.handleChange} />
+						</FormControl>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+						>
+							Sign in
+						</Button>
+						<Link className={classes.link} to="/signup">
+							<Typography>Don't have an account? Sign up!</Typography>
+						</Link>
+						<Link className={classes.link} to="/signup">
+							<Typography>Forgot your password?</Typography>
+						</Link>
+					</form>
 				</Paper>
 			</main>
 		);

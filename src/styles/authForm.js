@@ -28,6 +28,11 @@ const authForm = theme => ({
 	submit: {
 		marginTop: theme.spacing.unit * 3,
 	},
+	link: {
+		display: 'flex',
+		'justify-content': 'center',
+		marginTop: theme.spacing.unit * 3,
+	},
 });
 
 export default authForm;
