@@ -1,4 +1,4 @@
-const signupForm = theme => ({
+const signUpForm = theme => ({
 	main: {
 		width: 'auto',
 		display: 'block',
@@ -29,9 +29,6 @@ const signupForm = theme => ({
 	submit: {
 		marginTop: theme.spacing.unit * 3,
 	},
-	radioInput: {
-		marginTop: theme.spacing.unit * 3,
-	},
 	radioGroup: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -41,6 +38,33 @@ const signupForm = theme => ({
 		flexDirection: 'row',
 		'justify-content': 'space-between'
 	},
+	error: {
+		backgroundColor: theme.palette.error.dark,
+	},
+	icon: {
+		fontSize: 20,
+		opacity: 0.9,
+		marginRight: theme.spacing.unit,
+	},
+	message: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	link: {
+		display: 'flex',
+		'justify-content': 'center',
+		marginTop: theme.spacing.unit * 3,
+	},
+	wrapper: {
+		position: 'relative',
+	},
+	buttonProgress: {
+		color: theme.palette.primary.main,
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		marginLeft: -12,
+	},
 });
 
-export default signupForm;
+export default signUpForm;
