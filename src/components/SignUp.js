@@ -209,7 +209,7 @@ class SignUp extends React.Component {
 			accountError, showPassword, loading } = this.state;
 
 		if (this.context.authUser) {
-			return (<Redirect to='/' />);
+			return (<Redirect to='/me' />);
 		}
 
 		return (

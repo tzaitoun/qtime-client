@@ -7,6 +7,8 @@ import AuthContext from '../firebase/AuthContext';
 import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import NavBar from './NavBar';
+import Me from './Me';
 import PrivateRoute from './PrivateRoute';
 
 /* The root element component of the app, which saves auth state of the user and routes to other pages */
@@ -80,9 +82,11 @@ class App extends React.Component {
             <AuthContext.Provider value={auth}>
                 <Router>
                     <div>
-                        <PrivateRoute auth={auth} exact path="/" component={Home} />
+                        {auth.authUser && <NavBar />}
+                        <Route exact path="/" component={Home} />
                         <Route exact path="/signin" component={SignIn} />
                         <Route exact path='/signup' render={(props) => <SignUp {...props} handleSignUpComplete={this.handleSignUpComplete} />} />
+                        <PrivateRoute auth={auth} exact path='/me' component={Me} />
                     </div>
                 </Router>
             </AuthContext.Provider>
