@@ -25,4 +25,12 @@ function createInstructorAccount(instructor, token) {
     return axios.post(baseUrl + '/instructors/signup', instructor, setupHeader(token));
 }
 
-export default {createStudentAccount, createInstructorAccount};
+function getStudentCourses(token) {
+    return axios.get(baseUrl + '/students/me/courses', setupHeader(token));
+}
+
+function getInstructorCourses(token) {
+    return axios.get(baseUrl + '/instructors/me/courses', setupHeader(token));
+}
+
+export default {createStudentAccount, createInstructorAccount, getStudentCourses, getInstructorCourses};
