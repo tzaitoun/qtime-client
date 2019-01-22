@@ -33,4 +33,12 @@ function getInstructorCourses(token) {
     return axios.get(baseUrl + '/instructors/me/courses', setupHeader(token));
 }
 
-export default {createStudentAccount, createInstructorAccount, getStudentCourses, getInstructorCourses};
+function createCourse(course, token) {
+    return axios.post(baseUrl + '/courses', course, setupHeader(token));
+}
+
+function joinCourse(joinCode, token) {
+    return axios.post(baseUrl + '/courses/join', joinCode, setupHeader(token));
+}
+
+export default {createStudentAccount, createInstructorAccount, getStudentCourses, getInstructorCourses, createCourse, joinCourse};

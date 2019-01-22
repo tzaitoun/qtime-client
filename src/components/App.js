@@ -8,8 +8,10 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NavBar from './NavBar';
-import Me from './Me';
-import PrivateRoute from './PrivateRoute';
+import StudentHome from './StudentHome';
+import InstructorHome from './InstructorHome';
+import StudentRoute from './StudentRoute';
+import InstructorRoute from './InstructorRoute';
 
 /* The root element component of the app, which saves auth state of the user and routes to other pages */
 class App extends React.Component {
@@ -86,7 +88,8 @@ class App extends React.Component {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/signin" component={SignIn} />
                         <Route exact path='/signup' render={(props) => <SignUp {...props} handleSignUpComplete={this.handleSignUpComplete} />} />
-                        <PrivateRoute auth={auth} exact path='/me' component={Me} />
+                        <StudentRoute auth={auth} exact path='/s/home' component={StudentHome} />
+                        <InstructorRoute auth={auth} exact path='/i/home' component={InstructorHome} />
                     </div>
                 </Router>
             </AuthContext.Provider>

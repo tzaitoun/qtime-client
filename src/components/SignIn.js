@@ -84,10 +84,18 @@ class SignIn extends React.Component {
 
 	render() {
 		const { classes } = this.props;
-		const { from } = this.props.location.state || { from: { pathname: '/me' }};
 		const { email, password, error, showPassword } = this.state;
 
-		// If the authenticated user exists, redirect them to their previous location or to root
+		let pathname;
+		if (this.context.authRole === 0) {
+			pathname = '/s/home';
+		} else {
+			pathname = '/i/home';
+		}
+
+		const { from } = this.props.location.state || { from: { pathname: pathname }};
+
+		// If the authenticated user exists, redirect them to their previous location or to home
 		if (this.context.authUser) {
 			return (<Redirect to={from} />);
 		}

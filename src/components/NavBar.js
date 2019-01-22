@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,10 +10,6 @@ import navBar from '../styles/navBar';
 import app from '../firebase/app';
 
 class NavBar extends React.Component {
-    
-    constructor(props) {
-        super(props);
-    }
 
     async handleLogOut() {
         await app.auth().signOut();

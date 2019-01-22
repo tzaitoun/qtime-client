@@ -208,8 +208,10 @@ class SignUp extends React.Component {
 		const { accountType, email, password, firstName, lastName, studentId, university, errors, 
 			accountError, showPassword, loading } = this.state;
 
-		if (this.context.authUser) {
-			return (<Redirect to='/me' />);
+		if (this.context.authRole === 0) {
+			return (<Redirect to='/s/home' />);
+		} else if (this.context.authRole === 1) {
+			return (<Redirect to='/i/home' />);
 		}
 
 		return (

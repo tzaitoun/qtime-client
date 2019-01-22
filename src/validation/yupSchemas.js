@@ -19,4 +19,13 @@ const schemaInstructor = object().shape({
 	university: string().trim().required().max(30)
 });
 
-export default { schemaStudent, schemaInstructor };
+const schemaCourse = object().shape({
+	courseCode: string().trim().required().max(30),
+	courseName: string().trim().required().max(30)
+});
+
+const schemaJoinCourse = object().shape({
+	joinCode: string().trim().required().max(30)
+});
+
+export default { schemaStudent, schemaInstructor, schemaCourse, schemaJoinCourse };
