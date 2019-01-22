@@ -27,7 +27,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import app from '../firebase/app';
 import AuthContext from '../firebase/AuthContext';
-import qtime from '../utils/qtimeApi';
+import { createStudentAccount, createInstructorAccount } from '../utils/qtimeApi';
 import signUpForm from '../styles/signUpForm';
 import yupSchemas from '../validation/yupSchemas';
 
@@ -157,14 +157,14 @@ class SignUp extends React.Component {
 		// Create an account with Qtime, if it fails, delete the firebase account
 		try {
 			if (accountType === 'student') {
-				await qtime.createStudentAccount({
+				await createStudentAccount({
 					firstName: validatedData.firstName,
 					lastName: validatedData.lastName,
 					studentId: validatedData.studentId,
 					university: validatedData.university
 				}, token);
 			} else {
-				await qtime.createInstructorAccount({
+				await createInstructorAccount({
 					firstName: validatedData.firstName,
 					lastName: validatedData.lastName,
 					studentId: validatedData.studentId,

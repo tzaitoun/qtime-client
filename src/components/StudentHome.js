@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
 import AuthContext from '../firebase/AuthContext';
-import qtimeApi from '../utils/qtimeApi';
+import { getStudentCourses, joinCourse } from '../utils/qtimeApi';
 import yupSchemas from '../validation/yupSchemas';
 import home from '../styles/home';
 
@@ -65,7 +65,7 @@ class StudentHome extends React.Component {
         const { joinCode } = this.state;
         const schema = yupSchemas.schemaJoinCourse;
         const authUser = this.context.authUser;
-        console.log(joinCode);
+
         let validatedData;
         let dataError = '';
         try {
@@ -83,7 +83,7 @@ class StudentHome extends React.Component {
         }
 
         const token = await authUser.getIdToken();
-        const response = await qtimeApi.joinCourse({
+        const response = await joinCourse({
             joinCode: validatedData.joinCode
         }, token);
 
@@ -96,7 +96,7 @@ class StudentHome extends React.Component {
     async componentDidMount() {
         const authUser = this.context.authUser;
         const token = await authUser.getIdToken();
-        const response = await qtimeApi.getStudentCourses(token);
+        const response = await getStudentCourses(token);
 
         this.setState({
             courses: response.data.courses

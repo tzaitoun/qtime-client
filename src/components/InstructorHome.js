@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
 import AuthContext from '../firebase/AuthContext';
-import qtimeApi from '../utils/qtimeApi';
+import { getInstructorCourses, createCourse } from '../utils/qtimeApi';
 import yupSchemas from '../validation/yupSchemas';
 import home from '../styles/home';
 
@@ -85,7 +85,7 @@ class InstructorHome extends React.Component {
         }
 
         const token = await authUser.getIdToken();
-        const response = await qtimeApi.createCourse({
+        const response = await createCourse({
             code: validatedData.courseCode,
             name: validatedData.courseName
         }, token);
@@ -99,7 +99,7 @@ class InstructorHome extends React.Component {
     async componentDidMount() {
         const authUser = this.context.authUser;
         const token = await authUser.getIdToken();
-        const response = await qtimeApi.getInstructorCourses(token);
+        const response = await getInstructorCourses(token);
 
         this.setState({
             courses: response.data.courses

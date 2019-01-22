@@ -17,28 +17,26 @@ function setupHeader(token) {
     return config;
 }
 
-function createStudentAccount(student, token) {
+export function createStudentAccount(student, token) {
     return axios.post(baseUrl + '/students/signup', student, setupHeader(token));
 }
 
-function createInstructorAccount(instructor, token) {
+export function createInstructorAccount(instructor, token) {
     return axios.post(baseUrl + '/instructors/signup', instructor, setupHeader(token));
 }
 
-function getStudentCourses(token) {
+export function getStudentCourses(token) {
     return axios.get(baseUrl + '/students/me/courses', setupHeader(token));
 }
 
-function getInstructorCourses(token) {
+export function getInstructorCourses(token) {
     return axios.get(baseUrl + '/instructors/me/courses', setupHeader(token));
 }
 
-function createCourse(course, token) {
+export function createCourse(course, token) {
     return axios.post(baseUrl + '/courses', course, setupHeader(token));
 }
 
-function joinCourse(joinCode, token) {
+export function joinCourse(joinCode, token) {
     return axios.post(baseUrl + '/courses/join', joinCode, setupHeader(token));
 }
-
-export default {createStudentAccount, createInstructorAccount, getStudentCourses, getInstructorCourses, createCourse, joinCourse};
