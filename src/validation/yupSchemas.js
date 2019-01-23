@@ -21,7 +21,8 @@ const schemaInstructor = object().shape({
 
 const schemaCourse = object().shape({
 	courseCode: string().trim().required().max(30),
-	courseName: string().trim().required().max(30)
+	courseName: string().trim().required().max(30),
+	courseDescription: string().trim().required().max(300)
 });
 
 const schemaJoinCourse = object().shape({

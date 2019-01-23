@@ -10,11 +10,9 @@ const home = theme => ({
         marginTop: theme.spacing.unit,
         marginBottom: theme.spacing.unit,
     },
-    cardButton: {
-        display: "block",
-        textAlign: "initial",
-        width: "100%"
-    },
+    cardActions: {
+        display: 'flex',
+    }
 });
 
 export default home;

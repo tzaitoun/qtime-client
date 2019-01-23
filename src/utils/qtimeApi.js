@@ -40,3 +40,15 @@ export function createCourse(course, token) {
 export function joinCourse(joinCode, token) {
     return axios.post(baseUrl + '/courses/join', joinCode, setupHeader(token));
 }
+
+export function getCourse(courseId, token) {
+    return axios.get(baseUrl + '/courses/' + courseId, setupHeader(token));
+}
+
+export function getCourseQuestions(courseId, token) {
+    return axios.get(baseUrl + '/courses/' + courseId + '/q', setupHeader(token));
+}
+
+export function getCourseStudents(courseId, token) {
+    return axios.get(baseUrl + '/courses/' + courseId + '/students', setupHeader(token));
+}

@@ -10,6 +10,7 @@ import SignUp from './SignUp';
 import NavBar from './NavBar';
 import StudentHome from './StudentHome';
 import InstructorHome from './InstructorHome';
+import InstructorCourse from './InstructorCourse';
 import StudentRoute from './StudentRoute';
 import InstructorRoute from './InstructorRoute';
 
@@ -90,6 +91,7 @@ class App extends React.Component {
                         <Route exact path='/signup' render={(props) => <SignUp {...props} handleSignUpComplete={this.handleSignUpComplete} />} />
                         <StudentRoute auth={auth} exact path='/s/home' component={StudentHome} />
                         <InstructorRoute auth={auth} exact path='/i/home' component={InstructorHome} />
+                        <InstructorRoute auth={auth} exact path='/i/courses/:courseId' component={InstructorCourse} />
                     </div>
                 </Router>
             </AuthContext.Provider>
