@@ -11,6 +11,7 @@ import NavBar from './NavBar';
 import StudentHome from './StudentHome';
 import InstructorHome from './InstructorHome';
 import InstructorCourse from './InstructorCourse';
+import Question from './Question';
 import StudentRoute from './StudentRoute';
 import InstructorRoute from './InstructorRoute';
 
@@ -92,6 +93,7 @@ class App extends React.Component {
                         <StudentRoute auth={auth} exact path='/s/home' component={StudentHome} />
                         <InstructorRoute auth={auth} exact path='/i/home' component={InstructorHome} />
                         <InstructorRoute auth={auth} exact path='/i/courses/:courseId' component={InstructorCourse} />
+                        <InstructorRoute auth={auth} exact path='/i/courses/:courseId/q' component={Question} />
                     </div>
                 </Router>
             </AuthContext.Provider>

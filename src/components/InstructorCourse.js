@@ -55,12 +55,19 @@ class InstructorCourse extends React.Component {
         };
 
         this.handleTabChange = this.handleTabChange.bind(this);
+        this.handleCreateQuestion = this.handleCreateQuestion.bind(this);
     }
 
     handleTabChange(event, value) {
         this.setState({
             tab: value
         });
+    }
+
+    handleCreateQuestion() {
+        const { history, match } = this.props;
+        const courseId = match.params.courseId
+        history.push('/i/courses/' + courseId + '/q');
     }
 
     async componentDidMount() {
@@ -134,7 +141,8 @@ class InstructorCourse extends React.Component {
                         <div>
                             <Divider />
                             <div className={classes.tableFooter}>
-                                <Button variant="contained" color="primary" size="small" className={classes.button}>Create</Button>
+                                <Button variant="contained" color="primary" size="small" className={classes.button}
+                                onClick={this.handleCreateQuestion}>Create</Button>
                             </div>
                         </div>
                     </div>
