@@ -11,6 +11,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 
 import { getCourse, getCourseQuestions, getCourseStudents } from '../utils/qtimeApi';
 import AuthContext from '../firebase/AuthContext';
@@ -29,6 +31,13 @@ const styles = theme => ({
         'justify-content': 'center'
     },
     emptyMessage: {
+        margin: theme.spacing.unit * 2
+    },
+    tableFooter: {
+        display: 'flex',
+        'justify-content': 'flex-end'
+    },
+    button: {
         margin: theme.spacing.unit
     }
 });
@@ -121,6 +130,13 @@ class InstructorCourse extends React.Component {
                             <Typography variant='caption' className={classes.emptyMessage}>This course has no questions</Typography>
                         </div>
                         }
+
+                        <div>
+                            <Divider />
+                            <div className={classes.tableFooter}>
+                                <Button variant="contained" color="primary" size="small" className={classes.button}>Create</Button>
+                            </div>
+                        </div>
                     </div>
                     }
 
